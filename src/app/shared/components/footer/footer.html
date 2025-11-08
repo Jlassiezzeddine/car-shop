@@ -1,0 +1,21 @@
+<p-panel role="footer" class="my-6">
+  <div class="flex gap-10">
+    <div>
+      <a routerLink="/" class="inline-block">CARSHOP</a>
+      <p-divider />
+      <p>Your trusted destination for quality cars and unbeatable deals.</p>
+    </div>
+
+    <div>
+      <h2>Useful links</h2>
+      <p-divider />
+      <ul class="space-y-2">
+        @for (item of menuItems; track item.label) {
+          <li>
+            <a routerLink="{{ item.routerLink }}">{{ item.label }}</a>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</p-panel>
