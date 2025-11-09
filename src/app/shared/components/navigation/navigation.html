@@ -1,17 +1,63 @@
-<nav class="fixed top-6 w-full z-50">
-  <div class="container mx-auto">
-    <button
-      z-button
-      (click)="toggleTheme()"
-      [attr.aria-label]="
-        getCurrentTheme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
-      "
-    >
-      @if (getCurrentTheme() === 'dark') {
-        <z-icon zType="sun" />
-      } @else {
-        <z-icon zType="moon" />
-      }
-    </button>
+<nav class="fixed inset-0 md:top-0 w-full z-50 pointer-events-none">
+  <div class="w-full border-b bg-background pointer-events-auto">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center py-6">
+        <button
+          zSize="icon"
+          z-button
+          zType="outline"
+          zShape="circle"
+          (click)="toggleMenu()"
+          aria-label="Navigation Menu"
+          class="flex md:hidden"
+        >
+          <z-icon zType="text-align-start" />
+        </button>
+        <ul class="hidden md:flex gap-4">
+          @for (item of menuItems; track item.title) {
+            <li>
+              <a z-button zType="ghost" routerLink="{{ item.path }}">{{ item.title }}</a>
+            </li>
+          }
+        </ul>
+        <button
+          zSize="icon"
+          z-button
+          zType="outline"
+          zShape="circle"
+          (click)="toggleTheme()"
+          [attr.aria-label]="
+            getCurrentTheme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+          "
+        >
+          @if (getCurrentTheme() === 'dark') {
+            <z-icon zType="sun" />
+          } @else {
+            <z-icon zType="moon" />
+          }
+        </button>
+      </div>
+    </div>
   </div>
+  @if (showMenu) {
+    <div class="p-4 bg-background size-full pointer-events-auto space-y-8">
+      <ul class="space-y-4">
+        @for (item of menuItems; track item.title) {
+          <li>
+            <a z-button zType="ghost" (click)="toggleMenu()" routerLink="{{ item.path }}">{{
+              item.title
+            }}</a>
+          </li>
+        }
+      </ul>
+      <z-divider></z-divider>
+      <ul class="space-y-4">
+        @for (item of authItems; track item.title) {
+          <li>
+            <a z-button zType="ghost" routerLink="{{ item.path }}">{{ item.title }}</a>
+          </li>
+        }
+      </ul>
+    </div>
+  }
 </nav>
