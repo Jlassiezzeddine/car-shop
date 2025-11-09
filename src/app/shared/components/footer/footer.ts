@@ -8,10 +8,10 @@ import { PanelModule } from 'primeng/panel';
   selector: 'app-footer',
   imports: [PanelModule, RouterLink, DividerModule],
   templateUrl: './footer.html',
-  styleUrl: './footer.css',
 })
 export class Footer {
   protected menuItems: MenuItem[];
+  protected currentYear: number = new Date().getFullYear();
 
   constructor() {
     const routes = inject(ROUTES)[0] as Route[];

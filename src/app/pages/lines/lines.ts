@@ -4,6 +4,5 @@ import { Component } from '@angular/core';
   selector: 'app-lines',
   imports: [],
   templateUrl: './lines.html',
-  styleUrl: './lines.css',
 })
 export class Lines {}

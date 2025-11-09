@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-
+import { ButtonModule } from 'primeng/button';
+import { ProductsList } from '../../products/components/products-list/products-list';
+import { Hero } from '../../shared/components/hero/hero';
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [ButtonModule, Hero, ProductsList],
   templateUrl: './home.html',
-  styleUrl: './home.css',
 })
 export class Home {}
