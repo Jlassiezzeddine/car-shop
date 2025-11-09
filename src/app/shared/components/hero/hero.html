@@ -1,15 +1,22 @@
-<div class="relative h-dvh">
-  <img
-    class="absolute size-full object-cover object-center -z-20"
-    src="https://images.unsplash.com/photo-1704226840161-5718a7894bf0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2070"
-    alt="hero image"
-  />
+<div class="relative h-dvh w-full">
+  <div class="absolute inset-0">
+    <div class="size-full relative overflow-clip">
+      <img
+        class="absolute size-full object-cover object-center -z-20 animate-zoom-out"
+        src="https://images.unsplash.com/photo-1664220206028-ffb4192b99e3?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2070"
+        alt="hero image"
+      />
+      <div
+        class="absolute size-full bg-linear-to-br dark:from-primary-foreground/50 from-primary/50 via-transparent to-transparent -z-10"
+      ></div>
+    </div>
+  </div>
   <div
-    class="pt-24 container mx-auto px-6 flex flex-col items-center justify-center h-4/5 w-full text-center space-y-10"
+    class="pt-24 container mx-auto px-6 flex flex-col items-center justify-end h-4/5 w-full text-end space-y-10 text-primary-foreground dark:text-primary text-shadow-lg"
   >
-    <h1 class="text-5xl xl:text-7xl font-black leading-14">
+    <h1 class="text-5xl xl:text-7xl font-black leading-14 text-shadow-lg w-full">
       Experience the Ultimate Driving Machine
     </h1>
-    <p class="text-2xl">Precision engineering meets timeless luxury.</p>
+    <p class="text-2xl w-full">Precision engineering meets timeless luxury.</p>
   </div>
 </div>
