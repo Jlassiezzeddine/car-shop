@@ -8,32 +8,27 @@ import { SecondHand } from './pages/second-hand/second-hand';
 
 export const routes: Routes = [
   {
+    title: 'Home',
     path: '',
     pathMatch: 'full',
     component: Home,
-    data: { label: 'Home' },
   },
-  {
-    path: 'home',
-    redirectTo: '/',
-    data: { label: 'Home' },
-  },
-  { path: 'models', component: Models, data: { label: 'Models' } },
-  { path: 'lines', component: Lines, data: { label: 'Lines' } },
+  { path: 'models', component: Models, title: 'Models' },
+  { path: 'lines', component: Lines, title: 'Lines' },
   {
     path: 'second-hand',
     component: SecondHand,
-    data: { label: 'Second Hand' },
+    title: 'Second Hand',
   },
-  { path: 'auth/login', component: Login, data: { label: 'Login' } },
+  { path: 'auth/login', component: Login, title: 'Login' },
   {
     path: 'auth/register',
     component: Register,
-    data: { label: 'Register' },
+    title: 'Register',
   },
   {
     path: 'auth/logout',
     redirectTo: '/',
-    data: { label: 'Logout' },
+    title: 'Logout',
   },
 ];
