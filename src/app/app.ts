@@ -8,7 +8,6 @@ import { PageHeader } from './shared/components/page-header/page-header';
   selector: 'app-root',
   imports: [RouterOutlet, Header, Footer, PageHeader],
   templateUrl: './app.html',
-  styleUrl: './app.css',
 })
 export class App {
   protected readonly title = signal('car-shop');

@@ -1,5 +1,5 @@
 // breadcrumb.service.ts
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -16,10 +16,10 @@ export class BreadcrumbService {
   private readonly _breadcrumbs = new BehaviorSubject<Breadcrumb[]>([]);
   readonly breadcrumbs$: Observable<Breadcrumb[]> = this._breadcrumbs.asObservable();
 
-  constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-  ) {
+  private router = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
+
+  constructor() {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
       const breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root);
       this._breadcrumbs.next(breadcrumbs);
@@ -28,7 +28,7 @@ export class BreadcrumbService {
 
   private createBreadcrumbs(
     route: ActivatedRoute,
-    url: string = '',
+    url = '',
     breadcrumbs: Breadcrumb[] = [],
   ): Breadcrumb[] {
     const children: ActivatedRoute[] = route.children;

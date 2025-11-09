@@ -1,8 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IApiListResponse } from '../shared/interfaces/api-response.interface';
-import { IProduct } from './product.interface';
+import {
+  IApiListResponse,
+  IApiPaginationParams,
+  IApiResponse,
+} from '../shared/interfaces/api-list-response.interface';
+import { IProduct, IProductCreate, IProductUpdate } from './product.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -10,31 +14,30 @@ import { IProduct } from './product.interface';
 export class ProductService {
   private apiURL = 'https://e-commerce-api-63r3.onrender.com/api/v1/products'; // Replace with your API endpoint
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   // Fetch all products
-  getProducts(): Observable<IApiListResponse<IProduct>> {
-    const result = this.http.get<IApiListResponse<IProduct>>(this.apiURL);
-    return result;
+  getProducts(params?: IApiPaginationParams) {
+    return this.http.get<IApiListResponse<IProduct>>(this.apiURL, { params: { ...params } });
   }
 
   // Fetch a single product by id
-  getProduct(id: string): Observable<any> {
-    return this.http.get(`${this.apiURL}/${id}`);
+  getProduct(id: string) {
+    return this.http.get<IApiResponse<IProduct>>(`${this.apiURL}/${id}`);
   }
 
   // Add a new product
-  addProduct(product: any): Observable<any> {
-    return this.http.post(this.apiURL, product);
+  addProduct(product: IProductCreate) {
+    return this.http.post<IApiResponse<IProduct>>(this.apiURL, product);
   }
 
   // Update an existing product
-  updateProduct(id: string, product: any): Observable<any> {
-    return this.http.put(`${this.apiURL}/${id}`, product);
+  updateProduct(id: string, product: IProductUpdate) {
+    return this.http.put<IApiResponse<IProduct>>(`${this.apiURL}/${id}`, product);
   }
 
   // Delete a product
-  deleteProduct(id: string): Observable<any> {
+  deleteProduct(id: string): Observable<unknown> {
     return this.http.delete(`${this.apiURL}/${id}`);
   }
 }

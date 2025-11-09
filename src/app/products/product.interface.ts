@@ -11,3 +11,23 @@ export interface IProduct {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface IProductCreate {
+  name: string;
+  slug: string;
+  description: string;
+  basePrice: number;
+  categoryId: string;
+  sku: string;
+  images: string[];
+}
+
+export interface IProductUpdate {
+  name?: string;
+  slug?: string;
+  description?: string;
+  basePrice?: number;
+  categoryId?: string;
+  sku?: string;
+  images?: string[];
+}

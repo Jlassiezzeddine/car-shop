@@ -1,8 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
-@import 'tailwindcss';
-@import 'tailwindcss-primeui';
-@import 'primeicons/primeicons.css';
-
 /* Set Inter as the default font on the root html element */
 html {
   font-family:
@@ -21,6 +17,9 @@ html {
     'Segoe UI Symbol',
     'Noto Color Emoji';
 }
+
+@import 'tailwindcss';
+@plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -130,4 +129,13 @@ html {
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
