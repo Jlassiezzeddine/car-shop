@@ -26,7 +26,8 @@
     "format": "prettier --write './src/**/*.{ts,html,css,scss,json}'",
     "prepare": "husky install",
     "typecheck": "tsc --noEmit",
-    "clean": "rimraf node_modules dist && npm install"
+    "clean": "rimraf node_modules dist && npm install",
+    "check": "prettier --write  './src/**/*.{ts,html,css,scss,json}' && eslint --fix && tsc --noEmit "
   },
   "prettier": {
     "printWidth": 100,

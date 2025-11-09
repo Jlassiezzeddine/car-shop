@@ -3,11 +3,11 @@ import { RouterOutlet } from '@angular/router';
 import { DarkModeService } from '@shared/services/darkmode/darkmode';
 import { Footer } from './shared/components/footer/footer';
 import { Header } from './shared/components/header/header';
-import { PageHeader } from './shared/components/page-header/page-header';
+import { Navigation } from './shared/components/navigation/navigation';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Footer, PageHeader],
+  imports: [RouterOutlet, Navigation, Footer, Header],
   templateUrl: './app.html',
 })
 export class App implements OnInit {
