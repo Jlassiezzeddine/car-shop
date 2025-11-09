@@ -1,16 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { Route, RouterLink, ROUTES } from '@angular/router';
-import { MenuItem } from 'primeng/api';
-import { DividerModule } from 'primeng/divider';
-import { PanelModule } from 'primeng/panel';
 
 @Component({
   selector: 'app-footer',
-  imports: [PanelModule, RouterLink, DividerModule],
+  imports: [RouterLink],
   templateUrl: './footer.html',
 })
 export class Footer {
-  protected menuItems: MenuItem[];
+  protected menuItems: unknown[];
   protected currentYear: number = new Date().getFullYear();
 
   constructor() {

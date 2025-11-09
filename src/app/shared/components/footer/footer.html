@@ -1,5 +1,4 @@
 <footer class="w-full py-10 container mx-auto px-4">
-  <p-divider></p-divider>
   <div class="md:flex md:gap-10 space-y-10 my-10">
     <div class="space-y-6">
       <a routerLink="/" class="inline-block">CARSHOP</a>
@@ -8,16 +7,9 @@
 
     <div class="space-y-6">
       <h2 class="text-muted-foreground">Useful links</h2>
-      <ul class="space-y-2">
-        @for (item of menuItems; track item.label) {
-          <li>
-            <a routerLink="{{ item.routerLink }}">{{ item.label }}</a>
-          </li>
-        }
-      </ul>
+      <ul class="space-y-2"></ul>
     </div>
   </div>
-  <p-divider></p-divider>
   <div class="text-muted-foreground mt-6 text-sm md:flex justify-between items-center space-y-4">
     <p>&copy; {{ currentYear }} CARSHOP. All rights reserved.</p>
     <p>Created by Jlassi Ezzeddine</p>

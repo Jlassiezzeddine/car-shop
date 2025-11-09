@@ -1,17 +1,14 @@
 import { Component, inject } from '@angular/core';
-import { Route, RouterLink, ROUTES } from '@angular/router';
-import { MenuItem } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { MenubarModule } from 'primeng/menubar';
+import { Route, ROUTES } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  imports: [MenubarModule, RouterLink, ButtonModule],
+  imports: [],
   templateUrl: './header.html',
 })
 export class Header {
-  public menuItems: MenuItem[];
-  public authItems: MenuItem[];
+  public menuItems: unknown[];
+  public authItems: unknown[];
   constructor() {
     const routes = inject(ROUTES)[0] as Route[];
     this.menuItems = routes
