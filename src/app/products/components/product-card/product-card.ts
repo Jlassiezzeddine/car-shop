@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { IProduct } from '../../product.interface';
+import { ZardDividerComponent } from '@shared/components/ui/divider/divider.component';
 
 @Component({
   selector: 'app-product-card',
-  imports: [],
+  imports: [ZardDividerComponent],
   templateUrl: './product-card.html',
 })
 export class ProductCard {
