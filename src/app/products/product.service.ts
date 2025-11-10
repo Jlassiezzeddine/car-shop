@@ -18,7 +18,9 @@ export class ProductService {
 
   // Fetch all products
   getProducts(params?: IApiPaginationParams) {
-    return this.http.get<IApiListResponse<IProduct>>(this.apiURL, { params: { ...params } });
+    return this.http.get<IApiListResponse<IProduct>>(
+      `${this.apiURL}?limit=${params?.limit || 10}&page=${params?.page || 1}`,
+    );
   }
 
   // Fetch a single product by id

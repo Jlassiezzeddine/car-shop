@@ -1,1 +1,17 @@
-<p>product-card works!</p>
+<div class="border rounded-xl overflow-clip group cursor-pointer">
+  <div class="relative w-full aspect-video overflow-clip">
+    <img
+      class="size-full object-cover group-hover:scale-110 transition will-change-transform transform-gpu backface-hidden"
+      src="{{ defaultImage }}"
+      alt="{{ product.name }}'s image"
+    />
+  </div>
+  <div class="p-4 space-y-4">
+    <div class="flex justify-between">
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.finalPrice }}$</p>
+    </div>
+    <p>{{ product.description }}</p>
+    <p class="text-sm text-muted-foreground">SKU: {{ product.sku }}</p>
+  </div>
+</div>

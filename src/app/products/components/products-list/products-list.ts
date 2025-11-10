@@ -1,27 +1,33 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import {
   IApiPagination,
   IApiPaginationParams,
 } from '@shared/interfaces/api-list-response.interface';
 import { IProduct } from '../../product.interface';
 import { ProductService } from '../../product.service';
+import { ProductCard } from '../product-card/product-card';
 
 @Component({
   selector: 'app-products-list',
-  imports: [],
+  imports: [ProductCard],
   templateUrl: './products-list.html',
 })
-export class ProductsList {
+export class ProductsList implements OnInit {
   private productService = inject(ProductService);
+
+  @Input() preview = false;
   protected products: IProduct[] = [];
   protected pagination!: IApiPagination;
 
-  constructor() {
+  ngOnInit() {
     this.loadProducts();
   }
 
   loadProducts(params?: IApiPaginationParams) {
-    this.productService.getProducts(params).subscribe({
+    const paginationParams: IApiPaginationParams = this.preview
+      ? { page: 1, limit: 3 }
+      : params || {};
+    this.productService.getProducts(paginationParams).subscribe({
       next: (data) => {
         this.products = data.data.data;
         this.pagination = data.data.meta;

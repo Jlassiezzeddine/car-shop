@@ -1,5 +1,7 @@
-<div id="product-list-container">
-  @for (product of products; track product.id) {
-    <p>{{ product.name }}</p>
-  }
-</div>
+<section id="product-list-container" class="py-10">
+  <div class="grid grid-cols-3 gap-6">
+    @for (product of products; track product.id) {
+      <app-product-card [product]="product"></app-product-card>
+    }
+  </div>
+</section>
