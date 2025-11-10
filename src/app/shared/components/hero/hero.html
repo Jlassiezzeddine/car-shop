@@ -24,10 +24,12 @@
   <div
     class="dark text-primary py-24 container mx-auto px-6 flex flex-col items-center justify-end size-full text-center space-y-10"
   >
-    <h1 class="text-5xl xl:text-7xl font-black leading-14 w-full text-shadow-lg">
+    <h1 class="text-5xl xl:text-7xl font-black leading-16 w-full text-shadow-lg">
       Experience the Ultimate Driving Machine
     </h1>
     <p class="text-2xl w-full text-shadow-lg">Precision engineering meets timeless luxury.</p>
-    <a z-button zType="default" href="">Discover</a>
+    <button z-button zType="default" (click)="scrollToElement('product-list-container')">
+      Discover
+    </button>
   </div>
 </div>
