@@ -28,10 +28,10 @@ jobs:
         run: npm ci
 
       - name: Generate environment.ts
-        run: npm run prestart
+        run: npm run generate-env
 
       - name: Build Angular app
-        run: npm run build -- --configuration production --base-href "https://Jlassiezzeddine.github.io"
+        run: npm run build -- --configuration production --base-href "https://Jlassiezzeddine.github.io/car-shop/"
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4

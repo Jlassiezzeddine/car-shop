@@ -3,5 +3,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8000',
+  apiUrl: 'https://e-commerce-api-63r3.onrender.com',
 };
