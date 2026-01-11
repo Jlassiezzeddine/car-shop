@@ -31,7 +31,7 @@ jobs:
         run: npm run prestart
 
       - name: Build Angular app
-        run: npm run build -- --configuration production --base-href "https://Jlassiezzeddine.github.io/car-shop/"
+        run: npm run build -- --configuration production --base-href "https://Jlassiezzeddine.github.io"
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
