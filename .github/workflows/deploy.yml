@@ -27,6 +27,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Generate environment.ts
+        run: npm run prestart
+
       - name: Build Angular app
         run: npm run build -- --configuration production --base-href "https://Jlassiezzeddine.github.io/car-shop/"
 
