@@ -7,12 +7,13 @@ import {
   IApiResponse,
 } from '../shared/interfaces/api-list-response.interface';
 import { IProduct, IProductCreate, IProductUpdate } from './product.interface';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  private apiURL = 'https://e-commerce-api-63r3.onrender.com/api/v1/products'; // Replace with your API endpoint
+  private apiURL = `${environment.apiUrl}/products`; // Replace with your API endpoint
 
   private http = inject(HttpClient);
 

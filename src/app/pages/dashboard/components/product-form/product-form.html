@@ -1,0 +1,178 @@
+<div class="space-y-4">
+  <h3 id="product-form-title" class="text-xl font-semibold">
+    {{ isEditMode() ? 'Edit Product' : 'Add New Product' }}
+  </h3>
+
+  @if (errorMessage()) {
+    <div class="p-3 rounded-md bg-red-50 border border-red-200 text-red-800 text-sm">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+    <div class="grid grid-cols-2 gap-4">
+      <div class="space-y-2">
+        <label for="model" class="block text-sm font-medium text-gray-700">Model</label>
+        <input
+          z-input
+          formControlName="model"
+          id="model"
+          type="text"
+          [zStatus]="form.get('model')?.invalid && form.get('model')?.touched ? 'error' : undefined"
+        />
+        @if (getFieldError('model')) {
+          <p class="text-sm text-red-600">{{ getFieldError('model') }}</p>
+        }
+      </div>
+
+      <div class="space-y-2">
+        <label for="power" class="block text-sm font-medium text-gray-700">Power</label>
+        <input
+          z-input
+          formControlName="power"
+          id="power"
+          type="text"
+          [zStatus]="form.get('power')?.invalid && form.get('power')?.touched ? 'error' : undefined"
+        />
+        @if (getFieldError('power')) {
+          <p class="text-sm text-red-600">{{ getFieldError('power') }}</p>
+        }
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div class="space-y-2">
+        <label for="gearbox" class="block text-sm font-medium text-gray-700">Gearbox</label>
+        <input
+          z-input
+          formControlName="gearbox"
+          id="gearbox"
+          type="text"
+          [zStatus]="
+            form.get('gearbox')?.invalid && form.get('gearbox')?.touched ? 'error' : undefined
+          "
+        />
+        @if (getFieldError('gearbox')) {
+          <p class="text-sm text-red-600">{{ getFieldError('gearbox') }}</p>
+        }
+      </div>
+
+      <div class="space-y-2">
+        <label for="range" class="block text-sm font-medium text-gray-700">Range</label>
+        <input
+          z-input
+          formControlName="range"
+          id="range"
+          type="text"
+          [zStatus]="form.get('range')?.invalid && form.get('range')?.touched ? 'error' : undefined"
+        />
+        @if (getFieldError('range')) {
+          <p class="text-sm text-red-600">{{ getFieldError('range') }}</p>
+        }
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <label for="autonomy" class="block text-sm font-medium text-gray-700">Autonomy</label>
+      <input z-input formControlName="autonomy" id="autonomy" type="text" />
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div class="space-y-2">
+        <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
+        <input
+          z-input
+          formControlName="price"
+          id="price"
+          type="number"
+          step="0.01"
+          min="0"
+          [zStatus]="form.get('price')?.invalid && form.get('price')?.touched ? 'error' : undefined"
+        />
+        @if (getFieldError('price')) {
+          <p class="text-sm text-red-600">{{ getFieldError('price') }}</p>
+        }
+      </div>
+
+      <div class="space-y-2">
+        <label for="newPrice" class="block text-sm font-medium text-gray-700"
+          >New Price (optional)</label
+        >
+        <input
+          z-input
+          formControlName="newPrice"
+          id="newPrice"
+          type="number"
+          step="0.01"
+          min="0"
+          [zStatus]="
+            form.get('newPrice')?.invalid && form.get('newPrice')?.touched ? 'error' : undefined
+          "
+        />
+        @if (getFieldError('newPrice')) {
+          <p class="text-sm text-red-600">{{ getFieldError('newPrice') }}</p>
+        }
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div class="space-y-2">
+        <label for="quantity" class="block text-sm font-medium text-gray-700">Quantity</label>
+        <input
+          z-input
+          formControlName="quantity"
+          id="quantity"
+          type="number"
+          min="0"
+          [zStatus]="
+            form.get('quantity')?.invalid && form.get('quantity')?.touched ? 'error' : undefined
+          "
+        />
+        @if (getFieldError('quantity')) {
+          <p class="text-sm text-red-600">{{ getFieldError('quantity') }}</p>
+        }
+      </div>
+
+      <div class="space-y-2">
+        <label for="image" class="block text-sm font-medium text-gray-700">Image URL</label>
+        <input
+          z-input
+          formControlName="image"
+          id="image"
+          type="url"
+          [zStatus]="form.get('image')?.invalid && form.get('image')?.touched ? 'error' : undefined"
+        />
+        @if (getFieldError('image')) {
+          <p class="text-sm text-red-600">{{ getFieldError('image') }}</p>
+        }
+      </div>
+    </div>
+
+    @if (form.get('image')?.value) {
+      <div class="space-y-2">
+        <label class="block text-sm font-medium text-gray-700">Image Preview</label>
+        <img
+          [src]="form.get('image')?.value"
+          alt="Product preview"
+          class="h-48 w-full object-cover rounded border border-gray-200"
+          onerror="this.src='/assets/images/product-fallback.png'"
+        />
+      </div>
+    }
+
+    <div class="flex justify-end space-x-2 pt-4">
+      <button z-button zType="ghost" type="button" (click)="onCancel()" [disabled]="isLoading()">
+        Cancel
+      </button>
+      <button
+        z-button
+        zType="default"
+        type="submit"
+        [zLoading]="isLoading()"
+        [disabled]="isLoading()"
+      >
+        {{ isLoading() ? 'Saving...' : isEditMode() ? 'Update' : 'Create' }}
+      </button>
+    </div>
+  </form>
+</div>

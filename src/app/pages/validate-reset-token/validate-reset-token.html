@@ -1,0 +1,31 @@
+<div class="flex min-h-screen flex-col lg:flex-row">
+  <div class="flex flex-1 items-center justify-center bg-background p-4 sm:p-8">
+    <div class="w-full max-w-md space-y-6 sm:space-y-8">
+      <div class="text-center">
+        <h1 class="text-2xl font-bold sm:text-3xl">Validating reset token</h1>
+        <p class="mt-2 text-xs text-muted-foreground sm:text-base">
+          Please wait while we verify your reset token
+        </p>
+      </div>
+
+      <z-card class="p-4 sm:p-6 lg:p-8">
+        <div class="space-y-4 text-center">
+          @if (errorMessage) {
+            <div class="p-3 rounded-md bg-red-50 border border-red-200 text-red-800 text-xs">
+              {{ errorMessage }}
+            </div>
+            <a routerLink="/auth/password-reset-request" z-button zType="default" [zFull]="true">
+              Request a new reset link
+            </a>
+          } @else {
+            <div class="flex items-center justify-center py-8">
+              <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            </div>
+            <p class="text-xs text-muted-foreground">Validating token...</p>
+          }
+        </div>
+      </z-card>
+    </div>
+  </div>
+  <aside class="hidden flex-1 items-center justify-center bg-muted p-8 lg:flex"></aside>
+</div>

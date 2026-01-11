@@ -1,0 +1,268 @@
+<div class="space-y-4">
+  <!-- Header with Add Button -->
+  <div class="flex justify-between items-center">
+    <h2 class="text-2xl font-semibold">Products Management</h2>
+    <button z-button zType="default" (click)="openAddForm()">
+      <z-icon zType="folder-plus" zSize="sm" class="mr-2" />
+      Add Product
+    </button>
+  </div>
+
+  <!-- Error Message -->
+  @if (error()) {
+    <div class="p-3 rounded-md bg-red-50 border border-red-200 text-red-800 text-sm">
+      {{ error() }}
+    </div>
+  }
+
+  <!-- Loading State -->
+  @if (loading() && products().length === 0) {
+    <div class="text-center py-8">
+      <p class="text-gray-500">Loading products...</p>
+    </div>
+  }
+
+  <!-- Products Table -->
+  @if (!loading() || products().length > 0) {
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg">
+        <thead class="bg-gray-50">
+          <tr>
+            <th
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Image
+            </th>
+            <th
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Model
+            </th>
+            <th
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Power
+            </th>
+            <th
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Gearbox
+            </th>
+            <th
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Price
+            </th>
+            <th
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Quantity
+            </th>
+            <th
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Status
+            </th>
+            <th
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          @for (product of products(); track product.id) {
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                @if (product.image) {
+                  <img
+                    class="h-16 w-24 object-cover rounded"
+                    [src]="product.image"
+                    [alt]="product.model"
+                  />
+                } @else {
+                  <div
+                    class="h-16 w-24 bg-gray-200 rounded flex items-center justify-center text-gray-400 text-xs"
+                  >
+                    No Image
+                  </div>
+                }
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm font-medium text-gray-900">{{ product.model }}</div>
+                @if (product.range) {
+                  <div class="text-sm text-gray-500">Range: {{ product.range }}</div>
+                }
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">{{ product.power }}</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">{{ product.gearbox }}</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm font-medium text-gray-900">
+                  @if (product.newPrice) {
+                    <span class="line-through text-gray-400"
+                      >${{ product.price.toLocaleString() }}</span
+                    >
+                    <span class="text-green-600 ml-2"
+                      >${{ product.newPrice.toLocaleString() }}</span
+                    >
+                  } @else {
+                    ${{ product.price.toLocaleString() }}
+                  }
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">{{ product.quantity }}</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                @if (product.isActive) {
+                  <span
+                    class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800"
+                  >
+                    Active
+                  </span>
+                } @else {
+                  <span
+                    class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800"
+                  >
+                    Inactive
+                  </span>
+                }
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <div class="flex space-x-2">
+                  <button
+                    z-button
+                    zType="ghost"
+                    zSize="sm"
+                    (click)="openEditForm(product)"
+                    title="Edit"
+                  >
+                    <z-icon zType="save" zSize="sm" />
+                  </button>
+                  <button
+                    z-button
+                    zType="ghost"
+                    zSize="sm"
+                    (click)="deleteProduct(product.id)"
+                    title="Delete"
+                  >
+                    <z-icon zType="x" zSize="sm" />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="8" class="px-6 py-4 text-center text-gray-500">No products found</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    @if (totalPages() > 1) {
+      <div class="flex items-center justify-between border-t border-gray-200 px-4 py-3">
+        <div class="flex-1 flex justify-between sm:hidden">
+          <button
+            z-button
+            zType="ghost"
+            zSize="sm"
+            [disabled]="currentPage() === 1"
+            (click)="goToPage(currentPage() - 1)"
+          >
+            Previous
+          </button>
+          <button
+            z-button
+            zType="ghost"
+            zSize="sm"
+            [disabled]="currentPage() === totalPages()"
+            (click)="goToPage(currentPage() + 1)"
+          >
+            Next
+          </button>
+        </div>
+        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+          <div>
+            <p class="text-sm text-gray-700">
+              Showing
+              <span class="font-medium">{{ (currentPage() - 1) * pageSize() + 1 }}</span>
+              to
+              <span class="font-medium">{{ min(currentPage() * pageSize(), total()) }}</span>
+              of
+              <span class="font-medium">{{ total() }}</span>
+              results
+            </p>
+          </div>
+          <div>
+            <nav
+              class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+              aria-label="Pagination"
+            >
+              <button
+                z-button
+                zType="ghost"
+                zSize="sm"
+                [disabled]="currentPage() === 1"
+                (click)="goToPage(currentPage() - 1)"
+                class="rounded-l-md"
+              >
+                Previous
+              </button>
+              @for (page of getPageNumbers(); track page) {
+                <button
+                  z-button
+                  zType="ghost"
+                  zSize="sm"
+                  [class.bg-blue-50]="currentPage() === page"
+                  (click)="goToPage(page)"
+                >
+                  {{ page }}
+                </button>
+              }
+              <button
+                z-button
+                zType="ghost"
+                zSize="sm"
+                [disabled]="currentPage() === totalPages()"
+                (click)="goToPage(currentPage() + 1)"
+                class="rounded-r-md"
+              >
+                Next
+              </button>
+            </nav>
+          </div>
+        </div>
+      </div>
+    }
+  }
+
+  <!-- Product Form Modal -->
+  @if (showForm()) {
+    <div
+      class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50"
+      (click)="closeForm()"
+      (keydown.escape)="closeForm()"
+      tabindex="0"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="product-form-title"
+    >
+      <div
+        class="relative top-20 mx-auto p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white"
+        (click)="$event.stopPropagation()"
+      >
+        <app-product-form
+          [product]="editingProduct()"
+          (saved)="onProductSaved()"
+          (cancelled)="closeForm()"
+        />
+      </div>
+    </div>
+  }
+</div>

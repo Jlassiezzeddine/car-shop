@@ -13,6 +13,22 @@ export class Footer {
 
   constructor() {
     const routes = inject(ROUTES)[0] as Route[];
-    this.menuItems = routes.filter((route) => !route.path?.includes('auth') && route.title);
+    const flattenedRoutes = this.flattenRoutes(routes);
+    this.menuItems = flattenedRoutes.filter(
+      (route) => !route.path?.includes('auth') && route.title,
+    );
+  }
+
+  private flattenRoutes(routes: Route[]): Route[] {
+    const result: Route[] = [];
+    for (const route of routes) {
+      if (route.title) {
+        result.push(route);
+      }
+      if (route.children) {
+        result.push(...this.flattenRoutes(route.children));
+      }
+    }
+    return result;
   }
 }

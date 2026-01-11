@@ -1,33 +1,38 @@
 export interface IProduct {
   id: string;
-  name: string;
-  slug: string;
-  description: string;
-  basePrice: number;
-  categoryId: string;
-  sku: string;
-  images: string[];
-  finalPrice: number;
+  model: string;
+  power: string;
+  gearbox: string;
+  price: number;
+  newPrice?: number;
+  range: string;
+  autonomy?: string;
+  image: string;
+  quantity: number;
+  isActive: boolean;
   createdAt: Date;
-  updatedAt: Date;
 }
 
 export interface IProductCreate {
-  name: string;
-  slug: string;
-  description: string;
-  basePrice: number;
-  categoryId: string;
-  sku: string;
-  images: string[];
+  model: string;
+  power: string;
+  gearbox: string;
+  price: number;
+  newPrice?: number;
+  range: string;
+  autonomy?: string;
+  image: string;
+  quantity: number;
 }
 
 export interface IProductUpdate {
-  name?: string;
-  slug?: string;
-  description?: string;
-  basePrice?: number;
-  categoryId?: string;
-  sku?: string;
-  images?: string[];
+  model?: string;
+  power?: string;
+  gearbox?: string;
+  price?: number;
+  newPrice?: number;
+  range?: string;
+  autonomy?: string;
+  image?: string;
+  quantity?: number;
 }

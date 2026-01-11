@@ -1,0 +1,169 @@
+<div class="space-y-4">
+  <h3 id="user-form-title" class="text-xl font-semibold">
+    {{ isEditMode() ? 'Edit User' : 'Add New User' }}
+  </h3>
+
+  @if (errorMessage()) {
+    <div class="p-3 rounded-md bg-red-50 border border-red-200 text-red-800 text-sm">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+    <div class="grid grid-cols-2 gap-4">
+      <div class="space-y-2">
+        <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+        <input
+          z-input
+          formControlName="firstName"
+          id="firstName"
+          type="text"
+          [zStatus]="
+            form.get('firstName')?.invalid && form.get('firstName')?.touched ? 'error' : undefined
+          "
+        />
+        @if (getFieldError('firstName')) {
+          <p class="text-sm text-red-600">{{ getFieldError('firstName') }}</p>
+        }
+      </div>
+
+      <div class="space-y-2">
+        <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+        <input
+          z-input
+          formControlName="lastName"
+          id="lastName"
+          type="text"
+          [zStatus]="
+            form.get('lastName')?.invalid && form.get('lastName')?.touched ? 'error' : undefined
+          "
+        />
+        @if (getFieldError('lastName')) {
+          <p class="text-sm text-red-600">{{ getFieldError('lastName') }}</p>
+        }
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+      <input
+        z-input
+        formControlName="email"
+        id="email"
+        type="email"
+        [zStatus]="form.get('email')?.invalid && form.get('email')?.touched ? 'error' : undefined"
+      />
+      @if (getFieldError('email')) {
+        <p class="text-sm text-red-600">{{ getFieldError('email') }}</p>
+      }
+    </div>
+
+    <div class="space-y-2">
+      <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+      <input z-input formControlName="phone" id="phone" type="tel" />
+    </div>
+
+    @if (!isEditMode()) {
+      <div class="space-y-2">
+        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+        <div class="relative">
+          <input
+            id="password"
+            z-input
+            formControlName="password"
+            [type]="showPassword() ? 'text' : 'password'"
+            [zStatus]="
+              form.get('password')?.invalid && form.get('password')?.touched ? 'error' : undefined
+            "
+            class="pr-10"
+          />
+          <button
+            type="button"
+            (click)="togglePasswordVisibility()"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+            tabindex="-1"
+          >
+            <z-icon zType="eye" zSize="sm" [class.text-gray-400]="showPassword()" />
+          </button>
+        </div>
+        @if (getFieldError('password')) {
+          <p class="text-sm text-red-600">{{ getFieldError('password') }}</p>
+        }
+      </div>
+    }
+
+    <div class="space-y-2">
+      <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
+      <select
+        formControlName="role"
+        id="role"
+        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        [class.border-red-300]="form.get('role')?.invalid && form.get('role')?.touched"
+      >
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+      </select>
+      @if (form.get('role')?.invalid && form.get('role')?.touched) {
+        <p class="text-sm text-red-600">Role is required</p>
+      }
+    </div>
+
+    <div class="space-y-2">
+      <label for="avatar" class="block text-sm font-medium text-gray-700">Avatar URL</label>
+      <input z-input formControlName="avatar" id="avatar" type="url" />
+    </div>
+
+    @if (isEditMode()) {
+      <div class="space-y-4">
+        <div class="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            formControlName="emailVerified"
+            id="emailVerified"
+            class="rounded border-gray-300"
+          />
+          <label for="emailVerified" class="text-sm font-medium text-gray-700"
+            >Email Verified</label
+          >
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            formControlName="phoneVerified"
+            id="phoneVerified"
+            class="rounded border-gray-300"
+          />
+          <label for="phoneVerified" class="text-sm font-medium text-gray-700"
+            >Phone Verified</label
+          >
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            formControlName="isActive"
+            id="isActive"
+            class="rounded border-gray-300"
+          />
+          <label for="isActive" class="text-sm font-medium text-gray-700">Active</label>
+        </div>
+      </div>
+    }
+
+    <div class="flex justify-end space-x-2 pt-4">
+      <button z-button zType="ghost" type="button" (click)="onCancel()" [disabled]="isLoading()">
+        Cancel
+      </button>
+      <button
+        z-button
+        zType="default"
+        type="submit"
+        [zLoading]="isLoading()"
+        [disabled]="isLoading()"
+      >
+        {{ isLoading() ? 'Saving...' : isEditMode() ? 'Update' : 'Create' }}
+      </button>
+    </div>
+  </form>
+</div>

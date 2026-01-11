@@ -1,1 +1,105 @@
-<p>login works!</p>
+<div class="flex min-h-screen flex-col lg:flex-row">
+  <div class="flex flex-1 items-center justify-center bg-background p-4 sm:p-8">
+    <div class="w-full max-w-md space-y-6 sm:space-y-8">
+      <div class="text-center">
+        <h1 class="text-2xl font-bold sm:text-3xl">Welcome back</h1>
+        <p class="mt-2 text-xs text-muted-foreground sm:text-base">
+          Sign in to your account to continue
+        </p>
+      </div>
+
+      <z-card class="p-4 sm:p-6 lg:p-8">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4 sm:space-y-6">
+          @if (errorMessage) {
+            <div class="p-3 rounded-md bg-red-50 border border-red-200 text-red-800 text-xs">
+              {{ errorMessage }}
+            </div>
+          }
+
+          <div class="space-y-2">
+            <label for="email" class="block text-xs font-medium text-foreground">
+              Email <span class="text-destructive">*</span>
+            </label>
+            <input
+              z-input
+              type="email"
+              formControlName="email"
+              id="email"
+              placeholder="name@example.com"
+              class="w-full"
+              [zStatus]="
+                form.get('email')?.invalid && form.get('email')?.touched ? 'error' : undefined
+              "
+            />
+            @if (form.get('email')?.invalid && form.get('email')?.touched) {
+              <p class="text-xs text-destructive">
+                @if (form.get('email')?.errors?.['required']) {
+                  Email is required
+                } @else if (form.get('email')?.errors?.['email']) {
+                  Please enter a valid email address
+                }
+              </p>
+            }
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <label for="password" class="block text-xs font-medium text-foreground">
+                Password <span class="text-destructive">*</span>
+              </label>
+              <a
+                routerLink="/auth/password-reset-request"
+                class="text-xs text-primary hover:text-primary/80 underline p-0"
+              >
+                Forgot password?
+              </a>
+            </div>
+            <input
+              z-input
+              type="password"
+              formControlName="password"
+              id="password"
+              placeholder="••••••••"
+              class="w-full"
+              [zStatus]="
+                form.get('password')?.invalid && form.get('password')?.touched ? 'error' : undefined
+              "
+            />
+            @if (form.get('password')?.invalid && form.get('password')?.touched) {
+              <p class="text-xs text-destructive">Password is required</p>
+            }
+          </div>
+
+          <div class="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="remember"
+              formControlName="rememberMe"
+              class="w-4 h-4 text-primary bg-background border-input rounded focus:ring-primary focus:ring-2"
+            />
+            <label for="remember" class="text-xs cursor-pointer select-none text-foreground">
+              Remember me for 30 days
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            z-button
+            zType="default"
+            [zFull]="true"
+            [zLoading]="isLoading"
+            [disabled]="isLoading"
+          >
+            {{ isLoading ? 'Signing in...' : 'Sign in' }}
+          </button>
+        </form>
+      </z-card>
+
+      <p class="text-center text-xs text-muted-foreground">
+        Don't have an account?
+        <a routerLink="/auth/register" z-button zType="link" class="px-0 text-xs"> Sign up </a>
+      </p>
+    </div>
+  </div>
+  <aside class="hidden flex-1 items-center justify-center bg-muted p-8 lg:flex"></aside>
+</div>
