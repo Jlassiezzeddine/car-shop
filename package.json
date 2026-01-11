@@ -70,6 +70,7 @@
     "@types/jasmine": "~5.1.0",
     "@types/node": "^25.0.3",
     "angular-eslint": "20.5.2",
+    "baseline-browser-mapping": "^2.9.14",
     "dotenv-cli": "^11.0.0",
     "eslint": "^9.39.0",
     "eslint-config-prettier": "^10.1.8",
